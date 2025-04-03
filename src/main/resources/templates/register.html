@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{register.title}">Rejestracja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
+    <style>
+        .input-error {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-5" th:text="#{register.heading}">Rejestracja</h2>
+    <div class="d-flex justify-content-end mt-3">
+        <a href="/register?lang=pl" class="mx-2">Polski</a>
+        <a href="/register?lang=en" class="mx-2">English</a>
+    </div>
+
+    <form action="#" th:action="@{/register}" th:object="${user}" method="post" class="mt-3" onsubmit="return validatePassword()">
+        <div class="mb-3">
+            <label for="email" class="form-label" th:text="#{register.email}">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+        </div>
+        <div class="mb-3">
+            <label for="firstName" class="form-label" th:text="#{register.firstName}">Imię</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{imie}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label" th:text="#{register.lastName}">Nazwisko</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{nazwisko}" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label" th:text="#{register.password}">Hasło</label>
+            <input type="password" class="form-control" id="password" th:field="*{haslo}" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label" th:text="#{register.confirmPassword}">Powtórz hasło</label>
+            <input type="password" class="form-control" id="confirmPassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{register.submit}">Zarejestruj się</button>
+    </form>
+
+    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    function validatePassword() {
+        const password = document.getElementById('password').value;
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        if (password !== confirmPasswordInput.value) {
+            confirmPasswordInput.classList.add('input-error');
+            return false;
+        } else {
+            confirmPasswordInput.classList.remove('input-error');
+            return true;
+        }
+    }
+
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        if (this.classList.contains('input-error')) {
+            this.classList.remove('input-error');
+        }
+    });
+</script>
+</body>
+</html>

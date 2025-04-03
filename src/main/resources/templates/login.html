@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{login.title}">Logowanie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-5" th:text="#{login.heading}">Logowanie</h2>
+    <div class="d-flex justify-content-end mt-3">
+        <a href="/login?lang=pl" class="mx-2">Polski</a>
+        <a href="/login?lang=en" class="mx-2">English</a>
+    </div>
+
+
+    <form action="#" th:action="@{/login}" method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="email" class="form-label" th:text="#{login.email}">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label" th:text="#{login.password}">Hasło</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" th:text="#{login.submit}">Zaloguj się</button>
+        <label>
+            <input type="checkbox" name="remember-me"> Remember Me
+        </label>
+    </form>
+
+    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
